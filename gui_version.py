@@ -1,10 +1,13 @@
+from operator import length_hint
 from tkinter import *
 from tkinter import messagebox
 import pyperclip
 import random
 
-def inp_inf():
-    len_pass = InputInformation.get()
+def inp_inf(len_pass):
+    if int(len_pass) >= 100000:
+        messagebox.showinfo("pass-gen", "пароль слишком большой")
+
     password = ""
     for i in range(int(len_pass)):
         random_liter = random.randint(33, 127)
@@ -31,7 +34,7 @@ def input_text():
 
 
 def inp_btn():
-    btn = Button(text="Сгенерировать пароль", command=inp_inf)
+    btn = Button(text="Сгенерировать пароль", command=reqr_func)
     btn.place(x=600,
             y=115,
             anchor="c",
@@ -45,9 +48,18 @@ gui.title("pass-gen")
 gui.geometry("700x200+600+200")
 gui.configure(bg="black")
 
-InputInformation = Entry(gui)
-InputInformation.place(x = 255, y = 100, height=30,width=200)
-InputInformation.focus()
+input_information = Entry(gui)
+input_information.place(x = 255, y = 100, height=30,width=200)
+input_information.focus()
+
+def reqr_func():
+    len_pass = input_information.get()
+    if int(len_pass) >= 100000:
+        messagebox.showinfo("pass-gen", "пароль слишком большой")
+    else:
+        inp_inf(len_pass)
+
+
 
 main_text()
 input_text()
