@@ -1,12 +1,15 @@
 import random
 import pyperclip
 
+# Список с символами для пароля
 symbols_list = ["!", "\"", "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", ":", ";", "<", "=", ">", "?", "[", "\\", "]", "^", "_", "`", "{", "|", "}", "~"]
 numbers_list = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 big_letters_list = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
 little_letters_list = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
 all_symbols_list = ["!", "\"", "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ":", ";", "<", "=", ">", "?", "@", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "[", "\\", "]", "^", "_", "`", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "{", "|", "}", "~"]
 
+
+# Сбор данных для генерации пароля
 length = int(input("Введите длину пароля: "))
 type_password = input('''
 Если вы хотите что бы ваш пароль состоял только из опеределённых символов:
@@ -17,6 +20,7 @@ type_password = input('''
 ''')
 password = ""
 
+# Функция для проверки параметров и генерация пароля
 def pass_func(length: int, password: str, type_password: str = "a") -> str :
     if type_password == "s":
         for i in range(length):
@@ -34,6 +38,7 @@ def pass_func(length: int, password: str, type_password: str = "a") -> str :
         for i in range(length):
             password += random.choice(all_symbols_list)
 
+    # Копирование пароля в буфер обмена
     copied_password = input("Введите \"y\" для копирования пароля или любую другую клавишу для выхода: ")
     if copied_password == "y" or "Y":
         pyperclip.copy(password)
