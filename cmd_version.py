@@ -1,23 +1,64 @@
 import random
 import pyperclip
 
-def pass_func(length_password):
-    exit_value = True
+# Список с символами для пароля
+symbols_list = ["!", "\"", "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", ":", ";", "<", "=", ">", "?",
+				"[", "\\", "]", "^", "_", "`", "{", "|", "}", "~"]
+numbers_list = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+big_letters_list = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T",
+					"U", "V", "W", "X", "Y", "Z"]
+little_letters_list = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s",
+					"t", "u", "v", "w", "x", "y", "z"]
+all_symbols_list = ["!", "\"", "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/", "0", "1", "2", "3", "4",
+					"5", "6", "7", "8", "9", ":", ";", "<", "=", ">", "?", "@", "A", "B", "C", "D", "E", "F", "G", "H",
+					"I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "[", "\\",
+					"]", "^", "_", "`", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p",
+					"q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "{", "|", "}", "~"]
 
-    while exit_value:
-        if length_password >= 10000000:
-            print("Пароль слишком большой")
-            length_password = int(input("Введите длину пароля: "))
-        elif length_password <= 10000000:
-            password = ""
-            for i in range(length_password):
-                random_liter = random.randint(33, 127)
-                password += chr(random_liter)
-            copied_password = input("Введите \"y\" для копирования пароля или любую другую клавишу для выхода: ")
-            if copied_password == "y" or "Y":
-                pyperclip.copy(password)
-                exit_value = False
+# Получаем размер и проверяем на его пригодность
+bool_value = True
+while bool_value:
+	length = int(input("Введите длину пароля: "))
+	if length <= 10000:
+		bool_value = False
+		print(f"Длина пароля: {length}")
+	else:
+		print("Пароль слишком большой")
+
+# Получаем информацию о типе пароля
+type_password = input('''
+Если вы хотите что бы ваш пароль состоял только из опеределённых символов:
+Введите s - для пароля из символов
+Введите n - для пароля из цифр
+Введите b - для пароля из больших английских букв
+Введите l - для пароля из маленьких английских букв
+''')
+password = ""
 
 
-length_password = int(input("Введите длину пароля: "))
-pass_func(length_password)
+# Функция для проверки параметров и генерация пароля
+def pass_func(length: int, password: str, type_password: str = "a") -> str:
+	if type_password == "s":
+		for i in range(length):
+			password += random.choice(symbols_list)
+	elif type_password == "n":
+		for i in range(length):
+			password += random.choice(numbers_list)
+	elif type_password == "b":
+		for i in range(length):
+			password += random.choice(big_letters_list)
+	elif type_password == "l":
+		for i in range(length):
+			password += random.choice(little_letters_list)
+	else:
+		for i in range(length):
+			password += random.choice(all_symbols_list)
+
+	# Копирование пароля в буфер обмена
+	copied_password = input(
+			"Введите \"y\" для копирования пароля или любую другую клавишу для выхода: ")
+	if copied_password == "y" or "Y":
+		pyperclip.copy(password)
+
+
+pass_func(length, password, type_password)
