@@ -7,16 +7,17 @@ import pyperclip
 import random
 import tkinter as tk
 
-
-def reqr_func():
+# Функция проверяющая длину вводима пароля
+def password_size_func():
     len_pass = input_information.get()
     if int(len_pass) >= 100000:
         messagebox.showinfo("pass-gen", "пароль слишком большой")
     else:
-        inp_inf(len_pass)
+        generation_password_func(len_pass)
 
 
-def inp_inf(len_pass):
+# Функция для генерации пароля
+def generation_password_func(len_pass):
 
     if int(len_pass) >= 100000:
         messagebox.showinfo("pass-gen", "пароль слишком большой")
@@ -52,7 +53,7 @@ def inp_inf(len_pass):
 
     messagebox.showinfo("pass-gen", "Пароль скопирован")
 
-
+# Функция для вывода основного текста
 def main_text():
     label1 = Label(text="Генератор паролей: ",
                    fg="white",
@@ -62,6 +63,7 @@ def main_text():
     label1.pack(side=TOP)
 
 
+# Функция для меню ввода
 def input_text():
     label1 = Label(text="Введите длину пароля:",
                    fg="white",
@@ -70,8 +72,9 @@ def input_text():
     label1.place(x=5, y=100)
 
 
+# Функция для кнопки сгенерировать пароль
 def inp_btn():
-    btn = Button(text="Сгенерировать пароль", command=reqr_func)
+    btn = Button(text="Сгенерировать пароль", command=password_size_func)
     btn.place(x=600,
               y=115,
               anchor="c",
@@ -85,14 +88,17 @@ gui.title("pass-gen")
 gui.geometry("700x200+600+200")
 gui.configure(bg="black")
 
+# Создание меню с настройками генерации пароля
 input_information = Entry(gui)
 input_information.place(x=255, y=100, height=30, width=200)
 input_information.focus()
 
+# Вызов функций для их корректно работы
 main_text()
 input_text()
 inp_btn()
 
+# Параметры меню с настройками генерации пароля
 OptionList = [
     "Все символы",
     "Цифры",
